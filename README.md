@@ -44,12 +44,10 @@ This is automatically run when you push a new tag to main.
 pipx install copier
 ```
 
-* Navigate to where you keep your projects
-
 * Call copier with this template and answer all the questions
 
 ``` shell
-copier gh:FollowTheProcess/go_copier
+copier gh:FollowTheProcess/go_copier /path/to/put/your/new/project
 ```
 
 * Create a git repo (if not using the gh cli) and start developing
