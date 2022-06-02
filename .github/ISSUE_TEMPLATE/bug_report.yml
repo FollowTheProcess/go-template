@@ -40,15 +40,13 @@ body:
       description: |
         examples:
           - **OS**: Ubuntu 20.04
-          - **Python**: 3.9.7
-          - **Cookiecutter**: 1.7.2
-          - **Go Cookie**: 0.6.0
+          - **Go**: 1.17.2
+          - **project_slug}}**: 0.6.0
       value: |
         - OS:
-        - Python:
-        - Cookiecutter:
-        - Go Cookie:
-      render: markdown
+        - Go:
+        - {{project_slug}}:
+      render: Markdown
     validations:
       required: false
   - type: textarea
