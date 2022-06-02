@@ -35,6 +35,8 @@ author_name:
 
 author_email:
   type: str
+  # author_email is only used in goreleaser
+  when: "{{project_type == 'binary'}}"
 
 initialise_git_repo:
   type: bool
