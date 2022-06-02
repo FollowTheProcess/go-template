@@ -11,8 +11,8 @@ builds:
     binary: "{{project_slug}}"
     ldflags:
       - -s -w
-      - -X github.com/{{github_username}}/{{project_slug}}/main.version={% raw %}{{.Version}}{% endraw %}
-      - -X github.com/{{github_username}}/{{project_slug}}/main.commit={% raw %}{{.Commit}}{% endraw %}
+      - -X main.version={% raw %}{{.Version}}{% endraw %}
+      - -X main.commit={% raw %}{{.Commit}}{% endraw %}
     env:
       - CGO_ENABLED=0
     goos:
