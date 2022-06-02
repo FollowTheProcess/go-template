@@ -4,6 +4,13 @@ title: "[BUG] <title>"
 labels:
   - "bug"
 body:
+  - type: checkboxes
+    attributes:
+      label: Is there an existing issue for this?
+      description: Please search to see if an issue already exists for the bug you encountered.
+      options:
+        - label: I have searched the existing issues
+          required: true
   - type: textarea
     attributes:
       label: Current Behavior
@@ -33,12 +40,12 @@ body:
       description: |
         examples:
           - **OS**: Ubuntu 20.04
-          - **Copier**: 6.0.0
-          - **Go Cookie**: 0.6.0
+          - **Go**: 1.17.2
+          - **project_slug}}**: 0.6.0
       value: |
         - OS:
-        - Copier:
-        - Go Cookie:
+        - Go:
+        - {{project_slug}}:
       render: Markdown
     validations:
       required: false

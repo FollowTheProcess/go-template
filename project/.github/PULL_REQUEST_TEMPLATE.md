@@ -20,5 +20,5 @@ Closes #
 #### Checklist
 <!-- Go over all the following points, and put an `x` in all the boxes that apply. -->
 <!-- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->
-- [ ] I have updated the documentation if needed.
-- [ ] I have updated the tests if needed.
+- [ ] I have updated the documentation accordingly.
+- [ ] I have updated the tests accordingly.

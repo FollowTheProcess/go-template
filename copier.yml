@@ -22,8 +22,6 @@ license:
     - ISC License
     - Apache Software License 2.0
     - GNU General Public License v3
-    - None
-  default: MIT License
 
 github_username:
   type: str
@@ -45,3 +43,5 @@ initialise_git_repo:
 create_github_repo:
   type: bool
   default: true
+
+_subdirectory: project

@@ -4,6 +4,14 @@ title: "[QUESTION] <title>"
 labels:
   - "question"
 body:
+  - type: checkboxes
+    attributes:
+      label: Is there an existing issue for this?
+      description: Please search to see if an issue already exists for the question you want to ask.
+      options:
+        - label: I have searched the existing issues
+          required: true
+
   - type: textarea
     attributes:
       label: Description
