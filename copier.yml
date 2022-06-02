@@ -8,8 +8,8 @@ project_slug:
 project_type:
   type: str
   choices:
-    binary: "A executable program"
-    library: "An importable library"
+    - binary
+    - library
 
 description:
   type: str
