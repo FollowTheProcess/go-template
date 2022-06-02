@@ -1,0 +1,47 @@
+project_name:
+  type: str
+
+project_slug:
+  type: str
+  default: "{{project_name.lower().replace(' ', '_').replace('-', '_')}}"
+
+project_type:
+  type: str
+  choices:
+    binary: "A executable program"
+    library: "An importable library"
+
+description:
+  type: str
+
+license:
+  type: str
+  choices:
+    - MIT License
+    - BSD License
+    - ISC License
+    - Apache Software License 2.0
+    - GNU General Public License v3
+    - None
+  default: MIT License
+
+github_username:
+  type: str
+
+github_url:
+  type: str
+  default: "https://github.com/{{github_username}}/{{project_slug}}"
+
+author_name:
+  type: str
+
+author_email:
+  type: str
+
+initialise_git_repo:
+  type: bool
+  default: true
+
+create_github_repo:
+  type: bool
+  default: true

@@ -1,0 +1,60 @@
+project_name: "{{project_slug}}"
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: "{{project_slug}}"
+    dir: "."
+    main: "main.go"
+    binary: "{{project_slug}}"
+    ldflags:
+      - -s -w
+      - -X github.com/FollowTheProcess/{{project_slug}}/main.version={% raw %}{{.Version}}{% endraw %}
+      - -X github.com/FollowTheProcess/{{project_slug}}/main.commit={% raw %}{{.Commit}}{% endraw %}
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - "386"
+      - amd64
+      - arm64
+
+brews:
+  - goarm: "6"
+    tap:
+      owner: "{{github_username}}"
+      name: homebrew-tap
+      token: "{% raw %}{{.Env.HOMEBREW_TAP_TOKEN}}{% endraw %}"
+    commit_author:
+      name: "{{author_name}}"
+      email: "{{author_email}}"
+    homepage: "{{github_url}}"
+    description: "{{description}}"
+    license: "{{license}}"
+    install: |
+      bin.install "{{project_slug}}"
+    test: |
+      "#{bin}/{{project_slug}} --version"
+
+archives:
+  - replacements:
+      darwin: Darwin
+      linux: Linux
+      windows: Windows
+      386: i386
+      amd64: x86_64
+
+checksum:
+  name_template: "checksums.txt"
+
+snapshot:
+  name_template: "{% raw %}{{ .Tag }}-next{% endraw %}"
+
+changelog:
+  # The changelog is handled by release drafter
+  skip: true
