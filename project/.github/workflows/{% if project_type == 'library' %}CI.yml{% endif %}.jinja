@@ -2,6 +2,10 @@ name: CI
 
 on: [push, pull_request]
 
+concurrency:
+  group: {% raw %}${{ github.ref }}{% endraw %}
+  cancel-in-progress: true
+
 jobs:
   test:
     name: Test
