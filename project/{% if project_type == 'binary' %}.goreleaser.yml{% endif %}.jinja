@@ -7,12 +7,12 @@ before:
 builds:
   - id: "{{project_slug}}"
     dir: "."
-    main: "."
+    main: "./cmd/{{project_slug}}"
     binary: "{{project_slug}}"
     ldflags:
       - -s -w
-      - -X main.version={% raw %}{{.Version}}{% endraw %}
-      - -X main.commit={% raw %}{{.Commit}}{% endraw %}
+      - -X github.com/FollowTheProcess/{{project_slug}}/cli/cmd.version={% raw %}{{.Version}}{% endraw %}
+      - -X github.com/FollowTheProcess/{{project_slug}}/cli/cmd.commit={% raw %}{{.Commit}}{% endraw %}
     env:
       - CGO_ENABLED=0
     goos:

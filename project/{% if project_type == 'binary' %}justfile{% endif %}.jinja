@@ -1,12 +1,12 @@
 PROJECT_NAME := "{{project_slug}}"
 PROJECT_BIN := "./bin"
-PROJECT_ENTRY_POINT := "."
+PROJECT_ENTRY_POINT := "./cmd/{{project_slug}}"
 COVERAGE_DATA := "coverage.out"
 COVERAGE_HTML := "coverage.html"
 GORELEASER_DIST := "dist"
 COMMIT_SHA := `git rev-parse HEAD`
-VERSION_LDFLAG := "main.version"
-COMMIT_LDFLAG := "main.commit"
+VERSION_LDFLAG := "github.com/{{github_username}}/{{project_slug}}/cli/cmd.version"
+COMMIT_LDFLAG := "github.com/{{github_username}}/{{project_slug}}/cli/cmd.commit"
 
 # By default print the list of recipes
 _default:
