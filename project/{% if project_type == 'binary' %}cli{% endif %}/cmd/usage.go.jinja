@@ -6,7 +6,7 @@ var (
 	// Custom usage template with the header style applied, here by itself because it looks kind of messy.
 	{% raw %}usageTemplate = fmt.Sprintf(`%s:{{if .Runnable}}
   {{.UseLine}}{{end}}{{if .HasAvailableSubCommands}}
-  {{.CommandPath}} [command]{{end}}{{if gt (len .Aliases) 0}}
+  {{.CommandPath}} <command> [flags]{{end}}{{if gt (len .Aliases) 0}}
 
 %s:
   {{.NameAndAliases}}{{end}}{{if .HasExample}}
