@@ -50,12 +50,12 @@ author_email:
 initialise_git_repo:
   help: Whether to initialise a new local git repo
   type: bool
-  default: true
+  default: false
 
 create_github_repo:
   help: Whether to create a GitHub repo
   type: bool
-  default: true
+  default: false
 
 _subdirectory: project
 _tasks:
