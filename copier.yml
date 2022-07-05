@@ -48,12 +48,12 @@ author_email:
   when: "{{project_type == 'binary'}}"
 
 initialise_git_repo:
-  help: Whether to initialise a new local git repo
+  help: Initialise a new local git repo
   type: bool
   default: false
 
 create_github_repo:
-  help: Whether to create a GitHub repo
+  help: Create a GitHub repo
   type: bool
   default: false
 
