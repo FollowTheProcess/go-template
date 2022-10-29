@@ -1,9 +1,13 @@
-package {{project_slug}}
+package {{project_slug}}_test
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/{{github_username}}/{{project_slug}}"
+)
 
 func TestHello(t *testing.T) {
-	got := Hello()
+	got := {{project_slug}}.Hello()
 	want := "Hello {{project_slug}}"
 
 	if got != want {
