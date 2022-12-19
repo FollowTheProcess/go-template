@@ -2,19 +2,18 @@
 package cmd
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/{{github_username}}/{{project_slug}}/cli/app"
 	"github.com/MakeNowJust/heredoc/v2"
-	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 )
 
 var (
-	version     = "dev"                                // {{project_slug}} version, set at compile time by ldflags
-	commit      = ""                                   // {{project_slug}} commit hash, set at compile time by ldflags
-	headerStyle = color.New(color.FgWhite, color.Bold) // Setting header style to use in usage message (usage.go)
+	version   = "dev" // {{project_slug}} version, set at compile time by ldflags
+	commit    = ""    // {{project_slug}} version's commit hash, set at compile time by ldflags
+	buildDate = ""    // {{project_slug}} build date, set at compile time by ldflags
+	builtBy   = ""    // {{project_slug}} built by, set at compile time by ldflags
 )
 
 // BuildRootCmd builds and returns the root {{project_slug}} CLI command.
@@ -54,7 +53,7 @@ func BuildRootCmd() *cobra.Command {
 
 	// Set our custom version and usage templates
 	rootCmd.SetUsageTemplate(usageTemplate)
-	{% raw %}rootCmd.SetVersionTemplate(fmt.Sprintf(`{{printf "%s %s\n%s %s\n"}}`, headerStyle.Sprint("Version:"), version, headerStyle.Sprint("Commit:"), commit)){% endraw %}
+	rootCmd.SetVersionTemplate(versionTemplate)
 
 	return rootCmd
 }

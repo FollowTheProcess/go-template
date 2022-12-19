@@ -13,6 +13,8 @@ builds:
       - -s -w
       - -X github.com/{{github_username}}/{{project_slug}}/cli/cmd.version={% raw %}{{.Version}}{% endraw %}
       - -X github.com/{{github_username}}/{{project_slug}}/cli/cmd.commit={% raw %}{{.Commit}}{% endraw %}
+      - -X github.com/{{github_username}}/{{project_slug}}/cli/cmd.buildDate={% raw %}{{.Date}}{% endraw %}
+      - -X github.com/{{github_username}}/{{project_slug}}/cli/cmd.builtBy={% raw %}GoReleaser{% endraw %}
     env:
       - CGO_ENABLED=0
     goos:
