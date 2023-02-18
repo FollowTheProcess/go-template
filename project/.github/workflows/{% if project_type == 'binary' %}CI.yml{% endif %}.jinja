@@ -27,10 +27,10 @@ jobs:
           - windows-latest
 
     steps:
-      - name: Set up Go {% raw %}{{ env.GO_VERSION }}{% endraw %}
+      - name: Set up Go {% raw %}${{ env.GO_VERSION }}{% endraw %}
         uses: actions/setup-go@v3
         with:
-          go-version: {% raw %}{{ env.GO_VERSION }}{% endraw %}
+          go-version: {% raw %}${{ env.GO_VERSION }}{% endraw %}
 
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -46,10 +46,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Set up Go {% raw %}{{ env.GO_VERSION }}{% endraw %}
+      - name: Set up Go {% raw %}${{ env.GO_VERSION }}{% endraw %}
         uses: actions/setup-go@v3
         with:
-          go-version: {% raw %}{{ env.GO_VERSION }}{% endraw %}
+          go-version: {% raw %}${{ env.GO_VERSION }}{% endraw %}
 
       - name: Checkout Code
         uses: actions/checkout@v3
