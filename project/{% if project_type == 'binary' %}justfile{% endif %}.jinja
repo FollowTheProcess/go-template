@@ -23,7 +23,7 @@ tidy:
 # Compile the project binary
 build: tidy fmt
     {% raw %}mkdir -p {{ PROJECT_BIN }}{% endraw %}
-    {% raw %}goreleaser build --single-target --skip-before --snapshot --rm-dist --output {{ PROJECT_BIN }}/{{ PROJECT_NAME }}{% endraw %}
+    {% raw %}goreleaser build --single-target --skip-before --snapshot --clean --output {{ PROJECT_BIN }}/{{ PROJECT_NAME }}{% endraw %}
 
 # Run go fmt on all project files
 fmt:
