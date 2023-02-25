@@ -8,9 +8,10 @@ import (
 
 var headerStyle = color.New(color.FgWhite, color.Bold) // Setting header style to use in usage message (usage.go)
 
-var (
-	// Custom usage template with the header style applied, here by itself because it looks kind of messy.
-	{% raw %}usageTemplate = fmt.Sprintf(`%s:{{if .Runnable}}
+
+// Custom usage template with the header style applied, here by itself because it looks kind of messy.
+{% raw %}
+var usageTemplate = fmt.Sprintf(`%s:{{if .Runnable}}
   {{.UseLine}}{{end}}{{if .HasAvailableSubCommands}}
   {{.CommandPath}} <command> [flags]{{end}}{{if gt (len .Aliases) 0}}
 
@@ -36,5 +37,4 @@ Use "{{.CommandPath}} [command] --help" for more information about a command.{{e
 `,
 		headerStyle.Sprint("USAGE"), headerStyle.Sprint("ALIASES"), headerStyle.Sprint("EXAMPLES"), headerStyle.Sprint("AVAILABLE COMMANDS"),
 		headerStyle.Sprint("FLAGS"), headerStyle.Sprint("GLOBAL FLAGS"))
-)
 {% endraw %}
