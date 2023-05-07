@@ -82,6 +82,20 @@ jobs:
       - name: Fetch Existing Tags
         run: git fetch --force --tags
 
+      - name: Parse Release Version
+        id: version
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Publish Draft Release
+        uses: release-drafter/release-drafter@v5
+        with:
+          version: {% raw %}${{ steps.version.outputs.version }}{% endraw %}
+          publish: true
+        env:
+          GITHUB_TOKEN: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v4
         with:
