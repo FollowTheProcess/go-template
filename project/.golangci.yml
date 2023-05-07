@@ -1,29 +1,56 @@
 linters:
   disable-all: true
   enable:
+    - bodyclose
+    - containedctx
+    - durationcheck
     - errcheck
+    - errchkjson
+    - errname
     - exhaustive
+    - exportloopref
+    - goconst
     - gocritic
     - gocyclo
     - godot
     - gofumpt
     - goimports
+    - gomnd
+    - gosec
     - gosimple
     - govet
     - ineffassign
     - misspell
+    - nilerr
+    - nilnil
+    - nolintlint
+    - nonamedreturns
+    - predeclared
+    - reassign
     - revive
     - staticcheck
+    - tagliatelle
+    - tenv
+    - testpackage
+    - thelper
     - unconvert
+    - unparam
     - unused
     - whitespace
 
 linters-settings:
   gocyclo:
-    min-complexity: 20
+    min-complexity: 15
 
   staticcheck:
     go: "1.20"
+    checks: ["all"]
+
+  errcheck:
+    check-type-assertions: true
+    check-blank: true
+
+  gosimple:
     checks: ["all"]
 
   govet:
