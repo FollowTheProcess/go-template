@@ -88,6 +88,11 @@ jobs:
           VERSION=${GITHUB_REF#refs/tags/v}
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
+      - name: Set up Go {% raw %}${{ env.GO_VERSION }}{% endraw %}
+        uses: actions/setup-go@v4
+        with:
+          go-version: {% raw %}${{ env.GO_VERSION }}{% endraw %}
+
       - name: Publish Draft Release
         uses: release-drafter/release-drafter@v5
         with:
