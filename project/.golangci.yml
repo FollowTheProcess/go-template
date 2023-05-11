@@ -3,7 +3,6 @@ linters:
   enable:
     - bodyclose
     - containedctx
-    - decorder
     - durationcheck
     - errcheck
     - errchkjson
@@ -54,10 +53,3 @@ linters-settings:
 
   govet:
     enable-all: true
-
-  decorder:
-    dec-order:
-      - const
-      - var
-      - type
-      - func
