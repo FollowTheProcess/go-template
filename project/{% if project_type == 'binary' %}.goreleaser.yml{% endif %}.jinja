@@ -1,20 +1,16 @@
-project_name: "{{project_slug}}"
+project_name: {{project_slug}}
 
 before:
   hooks:
     - go mod tidy
 
 builds:
-  - id: "{{project_slug}}"
+  - id: {{project_slug}}
     dir: "."
-    main: "./cmd/{{project_slug}}"
-    binary: "{{project_slug}}"
+    main: main.go
+    binary: {{project_slug}}
     ldflags:
       - -s -w
-      - -X github.com/{{github_username}}/{{project_slug}}/cli/cmd.version={% raw %}{{.Version}}{% endraw %}
-      - -X github.com/{{github_username}}/{{project_slug}}/cli/cmd.commit={% raw %}{{.Commit}}{% endraw %}
-      - -X github.com/{{github_username}}/{{project_slug}}/cli/cmd.buildDate={% raw %}{{.Date}}{% endraw %}
-      - -X github.com/{{github_username}}/{{project_slug}}/cli/cmd.builtBy={% raw %}GoReleaser{% endraw %}
     env:
       - CGO_ENABLED=0
     goos:
@@ -29,23 +25,23 @@ builds:
 brews:
   - goarm: "7"
     tap:
-      owner: "{{github_username}}"
+      owner: {{github_username}}
       name: homebrew-tap
       token: "{% raw %}{{.Env.HOMEBREW_TAP_TOKEN}}{% endraw %}"
     folder: Formula
     commit_author:
-      name: "{{author_name}}"
-      email: "{{author_email}}"
-    homepage: "{{github_url}}"
-    description: "{{description}}"
-    license: "{{license}}"
+      name: {{author_name}}
+      email: {{author_email}}
+    homepage: {{github_url}}
+    description: {{description}}
+    license: {{license}}
     install: |
-      bin.install "{{project_slug}}"
+      bin.install {{project_slug}}
     test: |
       "#{bin}/{{project_slug}} --version"
 
 archives:
-  - id: "{{project_slug}}"
+  - id: {{project_slug}}
     {% raw %}name_template: >-
       {{ .ProjectName }}-
       {{- .Version}}-
@@ -55,7 +51,7 @@ archives:
       {{- else }}{{ .Arch }}{{ end }}{% endraw %}
 
 checksum:
-  name_template: "checksums.txt"
+  name_template: checksums.txt
 
 snapshot:
   name_template: "{% raw %}{{ .Tag }}-next{% endraw %}"
