@@ -12,9 +12,6 @@ concurrency:
   group: {% raw %}${{ github.ref }}{% endraw %}
   cancel-in-progress: true
 
-env:
-  GO_VERSION: "1.20"
-
 permissions: read-all
 
 jobs:
@@ -29,16 +26,13 @@ jobs:
           - windows-latest
 
     steps:
-      - name: Set up Go {% raw %}${{ env.GO_VERSION }}{% endraw %}
+      - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: {% raw %}${{ env.GO_VERSION }}{% endraw %}
+          go-version-file: go.mod
 
       - name: Checkout Code
         uses: actions/checkout@v3
-
-      - name: Download Dependencies
-        run: go mod download
 
       - name: Run Tests
         run: go test -race ./...
@@ -48,16 +42,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Set up Go {% raw %}${{ env.GO_VERSION }}{% endraw %}
+      - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: {% raw %}${{ env.GO_VERSION }}{% endraw %}
+          go-version-file: go.mod
 
       - name: Checkout Code
         uses: actions/checkout@v3
-
-      - name: Download Dependencies
-        run: go mod download
 
       - name: Run Tests
         run: go test -race -cover -covermode=atomic -coverprofile=./coverage.out ./...
@@ -72,10 +63,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Set up Go {% raw %}${{ env.GO_VERSION }}{% endraw %}
+      - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: {% raw %}${{ env.GO_VERSION }}{% endraw %}
+          go-version-file: go.mod
 
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -113,10 +104,10 @@ jobs:
           VERSION=${GITHUB_REF#refs/tags/v}
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Set up Go {% raw %}${{ env.GO_VERSION }}{% endraw %}
+      - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: {% raw %}${{ env.GO_VERSION }}{% endraw %}
+          go-version-file: go.mod
 
       - name: Publish Draft Release
         uses: release-drafter/release-drafter@v5
