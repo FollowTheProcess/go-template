@@ -46,7 +46,7 @@ archives:
   - id: {{project_slug}}
     {% raw %}name_template: >-
       {{ .ProjectName }}-
-      {{- .Version}}-
+      {{- .Version }}-
       {{- .Os }}-
       {{- if eq .Arch "amd64" }}x86_64
       {{- else if eq .Arch "386" }}i386
@@ -58,7 +58,7 @@ sboms:
     {% raw %}documents:
       - >-
         {{ .ProjectName }}-
-        {{- .Version}}-
+        {{- .Version }}-
         {{- .Os }}-
         {{- if eq .Arch "amd64" }}x86_64
         {{- else if eq .Arch "386" }}i386
