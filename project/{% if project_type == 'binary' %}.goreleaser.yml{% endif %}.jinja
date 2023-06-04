@@ -9,6 +9,8 @@ builds:
     dir: "."
     main: "."
     binary: {{project_slug}}
+    flags:
+      - -trimpath
     ldflags:
       - -s -w
     env:
