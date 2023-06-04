@@ -50,11 +50,23 @@ archives:
       {{- else if eq .Arch "386" }}i386
       {{- else }}{{ .Arch }}{{ end }}{% endraw %}
 
+sboms:
+  - id: {{project_slug}}
+    artifacts: archive
+    {% raw %}documents:
+      - >-
+        {{ .ProjectName }}-
+        {{- .Version}}-
+        {{- .Os }}-
+        {{- if eq .Arch "amd64" }}x86_64
+        {{- else if eq .Arch "386" }}i386
+        {{- else }}{{ .Arch }}{{ end }}.sbom{% endraw %}
+
 checksum:
   name_template: checksums.txt
 
 snapshot:
-  name_template: "{% raw %}{{ .Tag }}-next{% endraw %}"
+  name_template: "{% raw %}{{ .Tag }}-dev{{ .ShortCommit }}{% endraw %}"
 
 changelog:
   # The changelog is handled by release drafter
