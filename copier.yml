@@ -47,19 +47,4 @@ author_email:
   # author_email is only used in goreleaser
   when: "{{project_type == 'binary'}}"
 
-initialise_git_repo:
-  help: Initialise a new local git repo
-  type: bool
-  default: false
-
-create_github_repo:
-  help: Create a GitHub repo
-  type: bool
-  default: false
-
 _subdirectory: project
-_tasks:
-  - "go mod tidy"
-  - "go fmt ./..."
-  - "{% if initialise_git_repo %}git init --initial-branch=main && git add -A && git commit -m 'Initial Commit (Automated at Project Creation)'{% else %}echo 'skipping repo initialisation'{% endif %}"
-  - "{% if create_github_repo %}gh repo create {{project_slug}} --public --description '{{description}}' --remote origin --source . && git push --set-upstream origin main{% else %}echo 'skipping github repo creation'{% endif %}"
