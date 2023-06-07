@@ -18,13 +18,9 @@ The project template comes with a ready to go GitHub Actions configuration file 
 * Linting with [golangci-lint]
 * Formatting with `go fmt`
 
-### Task Automation with [just]
+### Task Automation with Make
 
-Very clean, simple justfile to automate project maintenance and development
-
-### [GitHub CLI]
-
-Option to use the new GitHub CLI to create a GitHub repo for you during project creation. (You'll need to have this already installed)
+Very clean and simple Makefile to automate project maintenance and development
 
 ### GitHub Issue Labelling
 
@@ -47,18 +43,16 @@ pipx install copier
 * Call copier with this template and answer all the questions
 
 ``` shell
-copier gh:FollowTheProcess/go_copier /path/to/put/your/new/project
+copier copy gh:FollowTheProcess/go_copier /path/to/put/your/new/project
 ```
 
-* Create a git repo (if not using the gh cli) and start developing
+* Create a git repo and start developing
 
-* Make a first commit to set up the github repo (if you didn't use the gh cli)
+* Make a first commit to set up the github repo
 
 * That should be it! from now on everything will be handled automatically. All you need to do is write code, tests and docs! Your code will be style checked, your tests will be run etc.
 
 [GitHub actions]: https://docs.github.com/en/free-pro-team@latest/actions
-[GitHub CLI]: https://cli.github.com
 [golangci-lint]: https://golangci-lint.run
 [goreleaser]: https://goreleaser.com/intro/
-[just]: https://github.com/casey/just
 [copier]: https://github.com/copier-org/copier
