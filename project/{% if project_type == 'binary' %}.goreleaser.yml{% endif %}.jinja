@@ -15,6 +15,7 @@ builds:
       - -s -w
     env:
       - CGO_ENABLED=0
+      - GOEXPERIMENT=loopvar
     goos:
       - linux
       - darwin
@@ -27,7 +28,7 @@ builds:
       - "7"
 
 brews:
-  - tap:
+  - repository:
       owner: {{github_username}}
       name: homebrew-tap
       token: "{% raw %}{{.Env.HOMEBREW_TAP_TOKEN}}{% endraw %}"
