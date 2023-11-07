@@ -9,7 +9,7 @@ on:
       - v*
 
 concurrency:
-  group: {% raw %}${{ github.ref }}{% endraw %}
+  group: {% raw %}${{ github.workflow }}-${{ github.ref }}{% endraw %}
   cancel-in-progress: true
 
 permissions: read-all
