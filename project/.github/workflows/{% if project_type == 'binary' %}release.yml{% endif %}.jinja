@@ -1,0 +1,71 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+permissions: {}
+
+env:
+  GOEXPERIMENT: loopvar
+
+jobs:
+  ci:
+    name: CI
+    uses: {{github_username}}/{{project_slug}}/.github/workflows/CI.yml@main
+    secrets: inherit
+    permissions:
+      contents: read
+
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: read
+
+    needs:
+      - ci
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch Existing Tags
+        run: git fetch --force --tags
+
+      - name: Install Syft
+        uses: jaxxstorm/action-install-gh-release@v1.10.0
+        with:
+          repo: anchore/syft
+
+      - name: Parse Release Version
+        id: version
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Publish Draft Release
+        uses: release-drafter/release-drafter@v5
+        with:
+          version: {% raw %}${{ steps.version.outputs.version }}{% endraw %}
+          publish: true
+        env:
+          GITHUB_TOKEN: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v5
+        with:
+          version: latest
+          args: release --clean
+        env:
+          GITHUB_TOKEN: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+          HOMEBREW_TAP_TOKEN: {% raw %}${{ secrets.HOMEBREW_TAP_TOKEN }}{% endraw %}
