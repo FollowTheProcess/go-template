@@ -1,0 +1,83 @@
+# https://taskfile.dev
+
+version: "3"
+
+env:
+  GOEXPERIMENT: loopvar
+
+vars:
+  COV_DATA: coverage.out
+
+tasks:
+  default:
+    desc: List all available tasks
+    silent: true
+    cmds:
+      - task --list
+
+  tidy:
+    desc: Tidy dependencies in go.mod and go.sum
+    cmd: go mod tidy
+
+  fmt:
+    desc: Run go fmt on all source files
+    cmd: go fmt ./...
+
+  test:
+    desc: Run the test suite
+    cmd: go test -race ./... {% raw %}{{ .CLI_ARGS }}{% endraw %}
+
+  build:
+    desc: Compile the project binary
+    generates:
+      - bin
+      - dist
+    cmds:
+      - mkdir -p ./bin
+      - goreleaser build --single-target --skip before --snapshot --clean --output ./bin/{{project_slug}}
+
+  bench:
+    desc: Run all project benchmarks
+    cmd: go test ./... -run None -benchmem -bench . {% raw %}{{ .CLI_ARGS }}{% endraw %}
+
+  lint:
+    desc: Run the linters and auto-fix if possible
+    cmd: golangci-lint run --fix
+    preconditions:
+      - sh: command -v golangci-lint
+        msg: golangci-lint not installed, see https://golangci-lint.run/usage/install/#local-installation
+
+  cov:
+    desc: Calculate test coverage and render the html
+    generates:
+      - {% raw %}%}"{{ .COV_DATA }}"{% endraw %}
+    cmds:
+      - go test -race -cover -covermode atomic -coverprofile {% raw %}{{ .COV_DATA }}{% endraw %} ./...
+      - go tool cover -html {% raw %}{{ .COV_DATA }}{% endraw %}
+
+  check:
+    desc: Run tests and linting in one
+    deps:
+      - test
+      - lint
+
+  sloc:
+    desc: Print lines of code
+    cmd: fd . -e go | xargs wc -l | sort -nr | head
+
+  clean:
+    desc: Remove build artifacts and other clutter
+    cmds:
+      - go clean ./...
+      - rm -rf {% raw %}{{ .COV_DATA }}{% endraw %}
+
+  install:
+    desc: Install the project on your machine
+    deps:
+      - uninstall
+      - build
+    cmd: cp ./bin/{{project_slug}} $GOBIN/{{project_slug}}
+
+  uninstall:
+    desc: Uninstall the project from your machine
+    cmd: rm -rf $GOBIN/{{project_slug}}
