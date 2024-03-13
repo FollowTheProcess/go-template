@@ -35,7 +35,7 @@ jobs:
         run: git fetch --force --tags
 
       - name: Install Syft
-        uses: jaxxstorm/action-install-gh-release@v1.10.0
+        uses: jaxxstorm/action-install-gh-release@v1.11.0
         with:
           repo: anchore/syft
 
@@ -51,7 +51,7 @@ jobs:
           go-version-file: go.mod
 
       - name: Publish Draft Release
-        uses: release-drafter/release-drafter@v5
+        uses: release-drafter/release-drafter@v6
         with:
           version: {% raw %}${{ steps.version.outputs.version }}{% endraw %}
           publish: true
