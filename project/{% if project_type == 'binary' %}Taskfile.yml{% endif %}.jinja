@@ -53,9 +53,9 @@ tasks:
 
   check:
     desc: Run tests and linting in one
-    deps:
-      - test
-      - lint
+    cmds:
+      - task: test
+      - task: lint
 
   sloc:
     desc: Print lines of code
