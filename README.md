@@ -18,9 +18,9 @@ The project template comes with a ready to go GitHub Actions configuration file 
 * Linting with [golangci-lint]
 * Formatting with `go fmt`
 
-### Task Automation with Make
+### Automation with [Task]
 
-Very clean and simple Makefile to automate project maintenance and development
+Very clean and simple Taskfile.yml to automate project maintenance and development
 
 ### GitHub Issue Labelling
 
@@ -56,3 +56,4 @@ copier copy gh:FollowTheProcess/go_copier /path/to/put/your/new/project
 [golangci-lint]: https://golangci-lint.run
 [goreleaser]: https://goreleaser.com/intro/
 [copier]: https://github.com/copier-org/copier
+[Task]: https://taskfile.dev
