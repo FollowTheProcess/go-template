@@ -8,7 +8,7 @@ on:
       - main
 
 concurrency:
-  group: {% raw %}${{ github.workflow }}-${{ github.ref }}{% endraw %}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 permissions: {}
@@ -16,7 +16,7 @@ permissions: {}
 jobs:
   test:
     name: Test
-    runs-on: {% raw %}${{ matrix.os }}{% endraw %}
+    runs-on: ${{ matrix.os }}
     permissions:
       contents: read
     strategy:
@@ -60,6 +60,7 @@ jobs:
         uses: codecov/codecov-action@v4
         with:
           files: ./coverage.out
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   lint:
     name: Lint
