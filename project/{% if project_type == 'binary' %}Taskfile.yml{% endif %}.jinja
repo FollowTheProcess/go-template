@@ -46,7 +46,7 @@ tasks:
   cov:
     desc: Calculate test coverage and render the html
     generates:
-      - {% raw %}%}"{{ .COV_DATA }}"{% endraw %}
+      - {% raw %}"{{ .COV_DATA }}"{% endraw %}
     cmds:
       - go test -race -cover -covermode atomic -coverprofile {% raw %}{{ .COV_DATA }}{% endraw %} ./...
       - go tool cover -html {% raw %}{{ .COV_DATA }}{% endraw %}
