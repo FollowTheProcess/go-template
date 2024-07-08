@@ -9,19 +9,23 @@ tasks:
   default:
     desc: List all available tasks
     silent: true
-    cmd: task --list
+    cmds:
+      - task --list
 
   tidy:
     desc: Tidy dependencies in go.mod and go.sum
-    cmd: go mod tidy
+    cmds: 
+      - go mod tidy
 
   fmt:
     desc: Run go fmt on all source files
-    cmd: go fmt ./...
+    cmds:
+      - go fmt ./...
 
   test:
     desc: Run the test suite
-    cmd: go test -race ./... {% raw %}{{ .CLI_ARGS }}{% endraw %}
+    cmds: 
+      - go test -race ./... {% raw %}{{ .CLI_ARGS }}{% endraw %}
 
   build:
     desc: Compile the project binary
@@ -34,11 +38,13 @@ tasks:
 
   bench:
     desc: Run all project benchmarks
-    cmd: go test ./... -run None -benchmem -bench . {% raw %}{{ .CLI_ARGS }}{% endraw %}
+    cmds: 
+      - go test ./... -run None -benchmem -bench . {% raw %}{{ .CLI_ARGS }}{% endraw %}
 
   lint:
     desc: Run the linters and auto-fix if possible
-    cmd: golangci-lint run --fix
+    cmds: 
+      - golangci-lint run --fix
     preconditions:
       - sh: command -v golangci-lint
         msg: golangci-lint not installed, see https://golangci-lint.run/usage/install/#local-installation
@@ -59,7 +65,8 @@ tasks:
 
   sloc:
     desc: Print lines of code
-    cmd: fd . -e go | xargs wc -l | sort -nr | head
+    cmds:
+      - fd . -e go | xargs wc -l | sort -nr | head
 
   clean:
     desc: Remove build artifacts and other clutter
@@ -72,8 +79,16 @@ tasks:
     deps:
       - uninstall
       - build
-    cmd: cp ./bin/{{project_slug}} $GOBIN/{{project_slug}}
+    cmds:
+      - cp ./bin/{{project_slug}} $GOBIN/{{project_slug}}
 
   uninstall:
     desc: Uninstall the project from your machine
-    cmd: rm -rf $GOBIN/{{project_slug}}
+    cmds:
+      - rm -rf $GOBIN/{{project_slug}}
+
+  update:
+    desc: Updates dependencies in go.mod and go.sum
+    cmds:
+      - go get -u -t ./...
+      - go mody tidy
