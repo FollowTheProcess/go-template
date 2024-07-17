@@ -14,21 +14,36 @@ tasks:
 
   tidy:
     desc: Tidy dependencies in go.mod and go.sum
-    cmds: 
+    sources:
+      - "**/*.go"
+      - go.mod
+      - go.sum
+    cmds:
       - go mod tidy
 
   fmt:
     desc: Run go fmt on all source files
+    sources:
+      - "**/*.go"
+    preconditions:
+      - sh: command -v golines
+        msg: golines not installed, see https://github.com/segmentio/golines
     cmds:
       - go fmt ./...
+      - golines . --ignore-generated --write-output
 
   test:
     desc: Run the test suite
+    sources:
+      - "**/*.go"
     cmds: 
       - go test -race ./... {% raw %}{{ .CLI_ARGS }}{% endraw %}
 
   build:
     desc: Compile the project binary
+    sources:
+      - "**/*.go"
+      - .goreleaser.yml
     generates:
       - bin
       - dist
@@ -38,11 +53,16 @@ tasks:
 
   bench:
     desc: Run all project benchmarks
+    sources:
+      - "**/*.go"
     cmds: 
       - go test ./... -run None -benchmem -bench . {% raw %}{{ .CLI_ARGS }}{% endraw %}
 
   lint:
     desc: Run the linters and auto-fix if possible
+    sources:
+      - "**/*.go"
+      - .golangci.yml
     cmds: 
       - golangci-lint run --fix
     preconditions:
