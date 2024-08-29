@@ -47,4 +47,4 @@ author_email:
   # author_email is only used in goreleaser
   when: "{{project_type == 'binary'}}"
 
-_subdirectory: project
+_subdirectory: template
