@@ -72,7 +72,7 @@ checksum:
   name_template: checksums.txt
 
 snapshot:
-  name_template: "{% raw %}{{ .Tag }}-dev{{ .ShortCommit }}{% endraw %}"
+  version_template: "{% raw %}{{ .Tag }}-dev{{ .ShortCommit }}{% endraw %}"
 
 changelog:
   # The changelog is handled by release drafter
