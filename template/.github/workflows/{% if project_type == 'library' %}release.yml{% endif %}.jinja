@@ -8,22 +8,12 @@ on:
 permissions: {}
 
 jobs:
-  ci:
-    name: CI
-    uses: {{github_username}}/{{project_slug}}/.github/workflows/CI.yml@main
-    secrets: inherit
-    permissions:
-      contents: read
-
   release:
     name: Release
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: read
-
-    needs:
-      - ci
 
     steps:
       - name: Checkout Code
@@ -46,4 +36,4 @@ jobs:
           version: {% raw %}${{ steps.version.outputs.version }}{% endraw %}
           publish: true
         env:
-          GITHUB_TOKEN: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+          GITHUB_TOKEN: {% raw %}${{ github.token }}{% endraw %}

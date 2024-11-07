@@ -8,22 +8,12 @@ on:
 permissions: {}
 
 jobs:
-  ci:
-    name: CI
-    uses: {{github_username}}/{{project_slug}}/.github/workflows/CI.yml@main
-    secrets: inherit
-    permissions:
-      contents: read
-
   release:
     name: Release
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: read
-
-    needs:
-      - ci
 
     steps:
       - name: Checkout Code
@@ -35,9 +25,7 @@ jobs:
         run: git fetch --force --tags
 
       - name: Install Syft
-        uses: jaxxstorm/action-install-gh-release@v1.12.0
-        with:
-          repo: anchore/syft
+        uses: anchore/sbom-action/download-syft@v0.17.7
 
       - name: Parse Release Version
         id: version
@@ -56,7 +44,7 @@ jobs:
           version: {% raw %}${{ steps.version.outputs.version }}{% endraw %}
           publish: true
         env:
-          GITHUB_TOKEN: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+          GITHUB_TOKEN: {% raw %}${{ github.token }}{% endraw %}
 
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v6
@@ -64,5 +52,5 @@ jobs:
           version: latest
           args: release --clean
         env:
-          GITHUB_TOKEN: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+          GITHUB_TOKEN: {% raw %}${{ github.token }}{% endraw %}
           HOMEBREW_TAP_TOKEN: {% raw %}${{ secrets.HOMEBREW_TAP_TOKEN }}{% endraw %}
