@@ -54,3 +54,8 @@ jobs:
         env:
           GITHUB_TOKEN: {% raw %}${{ github.token }}{% endraw %}
           HOMEBREW_TAP_TOKEN: {% raw %}${{ secrets.HOMEBREW_TAP_TOKEN }}{% endraw %}
+
+      - name: Generate Binary Attestation
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-path: "dist/*"
