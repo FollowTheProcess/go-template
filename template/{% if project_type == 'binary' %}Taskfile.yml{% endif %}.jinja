@@ -63,11 +63,15 @@ tasks:
     sources:
       - "**/*.go"
       - .golangci.yml
-    cmds: 
-      - golangci-lint run --fix
     preconditions:
       - sh: command -v golangci-lint
         msg: golangci-lint not installed, see https://golangci-lint.run/usage/install/#local-installation
+
+      - sh: command -v typos
+        msg: typos-cli not installed, see https://github.com/crate-ci/typos
+    cmds: 
+      - golangci-lint run --fix
+      - typos
 
   cov:
     desc: Calculate test coverage and render the html
