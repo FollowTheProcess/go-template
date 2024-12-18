@@ -51,6 +51,8 @@ tasks:
     sources:
       - "**/*.go"
       - .golangci.yml
+    deps:
+      - fmt
     preconditions:
       - sh: command -v golangci-lint
         msg: golangci-lint not installed, see https://golangci-lint.run/usage/install/#local-installation
