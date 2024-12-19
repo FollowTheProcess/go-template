@@ -69,10 +69,14 @@ tasks:
       - sh: command -v golangci-lint
         msg: golangci-lint not installed, see https://golangci-lint.run/usage/install/#local-installation
 
+      - sh: command -v betteralign
+        msg: requires betteralign, run `github.com/dkorunic/betteralign/cmd/betteralign@latest`
+
       - sh: command -v typos
-        msg: typos-cli not installed, see https://github.com/crate-ci/typos
-    cmds: 
+        msg: requires typos-cli, run `brew install typos-cli`
+    cmds:
       - golangci-lint run --fix
+      - betteralign -test_files -apply ./...
       - typos
 
   cov:
