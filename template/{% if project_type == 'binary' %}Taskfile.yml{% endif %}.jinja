@@ -30,12 +30,14 @@ tasks:
         msg: golines not installed, run `go install github.com/segmentio/golines@latest`
     cmds:
       - go fmt ./...
-      - golines . --ignore-generated --write-output
+      - golines . --ignore-generated --write-output --max-len 120
 
   test:
     desc: Run the test suite
     sources:
       - "**/*.go"
+      - go.mod
+      - go.sum
     cmds: 
       - go test -race ./... {% raw %}{{ .CLI_ARGS }}{% endraw %}
 
@@ -43,6 +45,8 @@ tasks:
     desc: Compile the project binary
     sources:
       - "**/*.go"
+      - go.mod
+      - go.sum
       - .goreleaser.yml
     generates:
       - bin
@@ -69,13 +73,9 @@ tasks:
       - sh: command -v golangci-lint
         msg: golangci-lint not installed, see https://golangci-lint.run/usage/install/#local-installation
 
-      - sh: command -v betteralign
-        msg: requires betteralign, run `go install github.com/dkorunic/betteralign/cmd/betteralign@latest`
-
       - sh: command -v typos
         msg: requires typos-cli, run `brew install typos-cli`
     cmds:
-      - betteralign -test_files -apply ./...
       - golangci-lint run --fix
       - typos
 
