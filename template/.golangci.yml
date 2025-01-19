@@ -3,6 +3,7 @@ linters:
   enable:
     - bodyclose
     - containedctx
+    - depguard
     - durationcheck
     - errcheck
     - errchkjson
@@ -37,6 +38,13 @@ linters:
     - whitespace
 
 linters-settings:
+  depguard:
+    rules:
+      main:
+        deny:
+          - pkg: "math/rand$"
+            desc: use math/rand/v2 instead
+
   errcheck:
     check-type-assertions: true
     check-blank: true
@@ -58,6 +66,9 @@ linters-settings:
 
   govet:
     enable-all: true
+
+  gofumpt:
+    extra-rules: true
 
   revive:
     max-open-files: 256
