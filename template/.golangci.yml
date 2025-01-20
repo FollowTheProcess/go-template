@@ -3,6 +3,7 @@ linters:
   disable:
     - decorder # Don't care about this
     - dupl # Basically every table driven test ever triggers this
+    - dupword # Messes with test cases more often than not
     - err113 # Out of date
     - exhaustruct # No
     - exportloopref # Go 1.22+ solves this
@@ -132,4 +133,5 @@ linters-settings:
       - name: unhandled-error
         arguments:
           - fmt\.(Fp|P)rint(ln|f)?
-          - strings.Builder.WriteString
+          - strings.Builder.Write(String|Byte)?
+          - bytes.Buffer.Write(String|Byte)?
