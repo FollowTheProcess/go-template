@@ -31,6 +31,7 @@ issues:
     - path: _test\.go
       linters:
         - prealloc # These kinds of optimisations will make no difference to test code
+        - gosec # Tests don't need security stuff
 
 linters-settings:
   cyclop:
