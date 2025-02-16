@@ -130,6 +130,9 @@ linters-settings:
       - name: line-length-limit
         disabled: true # gofmt/golines handles this well enough
 
+      - name: max-public-structs
+        disabled: true # This is a dumb rule
+
       - name: redefines-builtin-id
         disabled: true # predeclared does this
 
