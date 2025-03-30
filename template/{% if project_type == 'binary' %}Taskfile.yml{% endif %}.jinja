@@ -35,6 +35,7 @@ tasks:
       - "**/*.go"
       - go.mod
       - go.sum
+      - "**/testdata/**/*"
     cmds: 
       - go test -race ./... {% raw %}{{ .CLI_ARGS }}{% endraw %}
 
