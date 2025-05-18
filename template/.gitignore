@@ -34,5 +34,8 @@
 # Task
 !Taskfile.yml
 
+# Copier
+!*.jinja
+
 # ...even if they are in subdirectories
 !*/
