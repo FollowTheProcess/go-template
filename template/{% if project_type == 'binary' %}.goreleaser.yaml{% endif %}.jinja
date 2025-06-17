@@ -28,23 +28,25 @@ builds:
     goarm:
       - "7"
 
-brews:
-  - repository:
-      owner: {{github_username}}
-      name: homebrew-tap
-      token: "{% raw %}{{.Env.HOMEBREW_TAP_TOKEN}}{% endraw %}"
-    goarm: "7"
-    directory: Formula
+homebrew_casks:
+  - name: {{project_slug}}
+    binary: {{project_slug}}
+    directory: Casks
+    description: {{description}}
+    homepage: {{github_url}}
     commit_author:
       name: {{author_name}}
       email: {{author_email}}
-    homepage: {{github_url}}
-    description: {{description}}
-    license: {{license}}
-    install: |
-      bin.install "{{project_slug}}"
-    test: |
-      "#{bin}/{{project_slug}} --version"
+    repository:
+      owner: {{github_username}}
+      name: homebrew-tap
+      token: "{% raw %}{{.Env.HOMEBREW_TAP_TOKEN}}{% endraw %}"
+    hooks:
+      post:
+        install: |
+          if system_command("/usr/bin/xattr", args: ["-h"]).exit_status == 0
+            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/{{project_slug}}"]
+          end
 
 archives:
   - id: {{project_slug}}
