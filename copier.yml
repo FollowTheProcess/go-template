@@ -37,6 +37,11 @@ github_url:
   type: str
   default: "https://github.com/{{github_username}}/{{project_slug}}"
 
+module_path:
+  help: The Go module path of the project
+  type: str
+  default: github.com/{{github_username}}/{{project_slug}}
+
 author_name:
   help: Your name
   type: str
