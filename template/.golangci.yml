@@ -35,6 +35,7 @@ linters:
     - maintidx # This is just the inverse of complexity... which is cyclop
     - nestif # cyclop does this
     - nlreturn # Similar to wsl, I think best left to judgement
+    - noinlineerr # Inline errors are fine
     - nonamedreturns # Named returns are often helpful, it's naked returns that are the issue
     - paralleltest # I've never had Go tests take longer than a few seconds, it's fine
     - unparam # gopls is better and more subtle
