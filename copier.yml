@@ -55,9 +55,15 @@ author_email:
 dependency_bot:
   help: Which dependency update bot to use
   type: str
-  default: renovate
   choices:
     - renovate
     - dependabot
+
+linter:
+  help: Which popular Go linter to use
+  type: str
+  choices:
+    - golangci-lint
+    - staticcheck
 
 _subdirectory: template

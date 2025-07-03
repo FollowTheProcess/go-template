@@ -1,6 +1,6 @@
-# Go Copier
+# Go Template
 
-![License](https://img.shields.io/github/license/FollowTheProcess/go_copier.svg)
+![License](https://img.shields.io/github/license/FollowTheProcess/go-template.svg)
 
 A clean, simple Go copier template.
 
@@ -18,12 +18,13 @@ The template lets you choose whether you want to create a binary executable prog
 The project template comes with a ready to go GitHub Actions configuration file which automates all your code quality checks:
 
 * Testing with `go test`
-* Linting with [golangci-lint]
+* Linting with [golangci-lint] or [staticcheck]
 * Formatting with `go fmt`
+* Dependency updates with [Dependabot] or [Renovate]
 
 ### Automation with [Task]
 
-Very clean and simple Taskfile.yml to automate project maintenance and development
+Very clean and simple `Taskfile.yml` to automate project maintenance and development
 
 ### GitHub Issue Labelling
 
@@ -37,16 +38,16 @@ This is automatically run when you push a new tag to main.
 
 ## Usage
 
-* Ensure you have [copier] installed:
+* Ensure you have [copier] installed (I'm using [uv] here):
 
 ``` shell
-pipx install copier
+uv tool install copier
 ```
 
 * Call copier with this template and answer all the questions
 
 ``` shell
-copier copy gh:FollowTheProcess/go_copier /path/to/put/your/new/project
+copier copy gh:FollowTheProcess/go-template /path/to/put/your/new/project
 ```
 
 * Create a git repo and start developing
@@ -57,8 +58,12 @@ copier copy gh:FollowTheProcess/go_copier /path/to/put/your/new/project
 
 [GitHub actions]: https://docs.github.com/en/free-pro-team@latest/actions
 [golangci-lint]: https://golangci-lint.run
+[staticcheck]: https://staticcheck.dev
 [goreleaser]: https://goreleaser.com/intro/
 [copier]: https://github.com/copier-org/copier
 [Task]: https://taskfile.dev
 [repository secret]: https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions
 [personal access token]: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
+[Dependabot]: https://github.com/dependabot
+[Renovate]: https://www.mend.io/renovate/
+[uv]: https://docs.astral.sh/uv/
