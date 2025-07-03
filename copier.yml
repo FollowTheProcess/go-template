@@ -52,4 +52,12 @@ author_email:
   # author_email is only used in goreleaser
   when: "{{project_type == 'binary'}}"
 
+dependency_bot:
+  help: Which dependency update bot to use
+  type: str
+  default: renovate
+  choices:
+    - renovate
+    - dependabot
+
 _subdirectory: template
