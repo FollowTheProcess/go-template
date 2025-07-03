@@ -9,6 +9,7 @@ tasks:
   default:
     desc: List all available tasks
     silent: true
+    internal: true
     cmds: 
       - task --list
 
@@ -25,9 +26,8 @@ tasks:
     desc: Run go fmt on all source files
     sources:
       - "**/*.go"
-      - .golangci.yml
     cmds:
-      - golangci-lint fmt
+      - go fmt ./...
 
   test:
     desc: Run the test suite
@@ -39,6 +39,22 @@ tasks:
     cmds: 
       - go test -race ./... {% raw %}{{ .CLI_ARGS }}{% endraw %}
 
+  {% if project_type == 'binary' -%}
+  build:
+    desc: Compile the project binary
+    sources:
+      - "**/*.go"
+      - go.mod
+      - go.sum
+      - .goreleaser.yml
+    generates:
+      - bin
+      - dist
+    cmds:
+      - mkdir -p ./bin
+      - goreleaser build --single-target --skip before --snapshot --clean --output ./bin/{{project_slug}}
+  {%- endif %}
+
   bench:
     desc: Run all project benchmarks
     sources:
@@ -46,8 +62,9 @@ tasks:
     cmds: 
       - go test ./... -run None -benchmem -bench . {% raw %}{{ .CLI_ARGS }}{% endraw %}
 
+  {% if linter == 'golangci-lint' -%}
   lint:
-    desc: Run the linters and auto-fix if possible
+    desc: Run linting
     sources:
       - "**/*.go"
       - .golangci.yml
@@ -60,6 +77,22 @@ tasks:
     cmds:
       - golangci-lint run --fix
       - typos
+  {%- else -%}
+  lint:
+    desc: Run linting
+    sources:
+      - "**/*.go"
+      - staticcheck.conf
+    preconditions:
+      - sh: command -v staticcheck
+        msg: staticcheck not installed, see https://staticcheck.dev/docs/getting-started/
+
+      - sh: command -v typos
+        msg: requires typos-cli, run `brew install typos-cli`
+    cmds:
+      - staticcheck ./...
+      - typos
+  {%- endif %}
 
   doc:
     desc: Render the pkg docs locally
@@ -99,3 +132,18 @@ tasks:
     cmds:
       - go get -u ./...
       - go mod tidy
+
+  {% if project_type == 'binary' -%}
+  install:
+    desc: Install the project on your machine
+    deps:
+      - uninstall
+      - build
+    cmds:
+      - cp ./bin/{{project_slug}} $GOBIN/{{project_slug}}
+
+  uninstall:
+    desc: Uninstall the project from your machine
+    cmds:
+      - rm -rf $GOBIN/{{project_slug}}
+  {% endif %}
