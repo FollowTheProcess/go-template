@@ -55,7 +55,6 @@ author_email:
 dependency_bot:
   help: Which dependency update bot to use
   type: str
-  default: renovate
   choices:
     - renovate
     - dependabot
@@ -63,7 +62,6 @@ dependency_bot:
 linter:
   help: Which popular Go linter to use
   type: str
-  default: golangci-lint
   choices:
     - golangci-lint
     - staticcheck
