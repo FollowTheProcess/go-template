@@ -10,7 +10,7 @@ A clean, simple Go copier template.
 
 The template lets you choose whether you want to create a binary executable program (e.g. a CLI) or an importable library and the generated files will be tailored accordingly! For example, a binary project will use [goreleaser] and have a `build` target in the task runner to compile it.
 
-> ![NOTE]
+> [!NOTE]
 > If you choose a binary, by default the `release` GitHub action will use [goreleaser] to create a homebrew cask for your program. This requires you to have a homebrew tap repo under your username like `FollowTheProcess/homebrew-tap` and to set a [repository secret] called `HOMEBREW_TAP_TOKEN` containing a GitHub [personal access token] with permissions to write to that repo
 
 ### [GitHub Actions]
