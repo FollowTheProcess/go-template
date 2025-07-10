@@ -1,6 +1,6 @@
 [project]
 name = "go-template"
-version = "0.47.1"
+version = "0.47.2"
 description = "A clean, simple Go copier template."
 authors = [{ name = "Tom Fleet", email = "me@followtheprocess.codes" }]
 readme = "README.md"
