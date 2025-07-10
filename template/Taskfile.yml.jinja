@@ -9,8 +9,7 @@ tasks:
   default:
     desc: List all available tasks
     silent: true
-    internal: true
-    cmds: 
+    cmds:
       - task --list
 
   tidy:
@@ -36,7 +35,7 @@ tasks:
       - go.mod
       - go.sum
       - "**/testdata/**/*"
-    cmds: 
+    cmds:
       - go test -race ./... {% raw %}{{ .CLI_ARGS }}{% endraw %}
 
   {% if project_type == 'binary' -%}
@@ -59,7 +58,7 @@ tasks:
     desc: Run all project benchmarks
     sources:
       - "**/*.go"
-    cmds: 
+    cmds:
       - go test ./... -run None -benchmem -bench . {% raw %}{{ .CLI_ARGS }}{% endraw %}
 
   {% if linter == 'golangci-lint' -%}
@@ -118,7 +117,7 @@ tasks:
 
   sloc:
     desc: Print lines of code
-    cmds: 
+    cmds:
       - fd . -e go | xargs wc -l | sort -nr | head
 
   clean:
