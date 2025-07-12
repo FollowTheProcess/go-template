@@ -22,11 +22,11 @@ license:
   help: Which open source license to use
   type: str
   choices:
-    - MIT License
-    - BSD License
-    - ISC License
-    - Apache Software License 2.0
-    - GNU General Public License v3
+    MIT License: MIT
+    BSD License: BSD-3-Clause
+    ISC License: ISC
+    Apache Software License 2.0: Apache-2.0
+    GNU General Public License v3: GPL-3.0-only
 
 github_username:
   help: Your GitHub username

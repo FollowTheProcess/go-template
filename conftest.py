@@ -35,7 +35,7 @@ def template(tmp_path_factory: pytest.TempPathFactory) -> Iterator[Path]:
             "project_slug": "testy",
             "project_type": "binary",
             "description": "A test package for testing",
-            "license": "MIT License",
+            "license": "MIT",
             "github_username": "TestUser",
             "github_url": "https://github.com/TestUser/testy",
             "module_path": "github.com/TestUser/testy",
