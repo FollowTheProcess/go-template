@@ -55,6 +55,7 @@ linters:
         linters:
           - prealloc # These kinds of optimisations will make no difference to test code
           - gosec # Tests don't need security stuff
+          - goconst # Sometimes repetition is okay in tests
 
   settings:
     cyclop:
@@ -158,6 +159,7 @@ linters:
             - fmt\.(Fp|P)rint(ln|f)?
             - strings.Builder.Write(String|Byte)?
             - bytes.Buffer.Write(String|Byte)?
+            - go/printer.(Fp|P)rint(ln|f)?
 
         - name: flag-parameter
           disabled: true # As far as I can work out this just doesn't like bools
