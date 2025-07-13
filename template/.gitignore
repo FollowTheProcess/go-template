@@ -211,3 +211,6 @@ $RECYCLE.BIN/
 .zed/*
 # !.zed/settings.json
 !.zed/tasks.json
+
+# Taskfile
+.task/
