@@ -27,7 +27,7 @@ jobs:
         run: git fetch --force --tags
 
       - name: Install Syft
-        uses: anchore/sbom-action/download-syft@v0.20.2
+        uses: anchore/sbom-action/download-syft@latest
 
       - name: Parse Release Version
         id: version
@@ -58,6 +58,6 @@ jobs:
           HOMEBREW_TAP_TOKEN: {% raw %}${{ secrets.HOMEBREW_TAP_TOKEN }}{% endraw %}
 
       - name: Generate Binary Attestation
-        uses: actions/attest-build-provenance@v2
+        uses: actions/attest-build-provenance@v3
         with:
           subject-checksums: dist/checksums.txt
