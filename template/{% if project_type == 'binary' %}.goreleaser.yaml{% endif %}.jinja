@@ -6,6 +6,11 @@ before:
   hooks:
     - go mod tidy
 
+gomod:
+  proxy: true
+
+report_sizes: true
+
 builds:
   - id: {{project_slug}}
     dir: "."
@@ -21,10 +26,14 @@ builds:
       - linux
       - darwin
       - windows
+      - freebsd
+      - openbsd
+      - netbsd
     goarch:
-      - "386"
       - amd64
       - arm64
+      - "386"
+      - arm
     goarm:
       - "7"
 
@@ -47,6 +56,24 @@ homebrew_casks:
           if system_command("/usr/bin/xattr", args: ["-h"]).exit_status.zero?
             system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/{{project_slug}}"]
           end
+
+dockers_v2:
+  - images:
+      - {{github_username | lower}}/{{project_slug}}
+      - ghcr.io/{{github_username | lower}}/{{project_slug}}
+    tags:
+      - {% raw %}"{{ .Version }}"{% endraw %}
+    labels:
+      "org.opencontainers.image.description": "{{description}}"
+      "org.opencontainers.image.created": {% raw %}"{{.Date}}"{% endraw %}
+      "org.opencontainers.image.name": {% raw %}"{{.ProjectName}}"{% endraw %}
+      "org.opencontainers.image.revision": {% raw %}"{{.FullCommit}}"{% endraw %}
+      "org.opencontainers.image.version": {% raw %}"{{.Version}}"{% endraw %}
+      "org.opencontainers.image.source": {% raw %}"{{.GitURL}}"{% endraw %}
+
+docker_digest:
+  name_template: digests.txt
+  disable: false
 
 archives:
   - id: {{project_slug}}
