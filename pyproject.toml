@@ -18,10 +18,10 @@ dependencies = ["copier==9.10.2"]
 dev = [
     "pytest>=8.4.1",
     "pytest-clarity>=1.0.1",
-    "mypy>=1.16.1",
     "ruff>=0.12.1",
     "PyYAML>=6.0.2",
     "types-pyyaml>=6.0.12.20240808",
+    "ty>=0.0.1a21",
 ]
 
 [project.urls]
@@ -42,18 +42,6 @@ addopts = ["-ra", "--strict-markers", "--strict-config"]
 xfail_strict = true
 log_cli_level = "INFO"
 testpaths = ["tests"]
-
-[tool.mypy]
-# It gets confused about python files in the template
-files = ["tests/**/*.py"]
-python_version = "3.13"
-ignore_missing_imports = true
-strict = true
-pretty = true
-disallow_untyped_decorators = false
-show_error_codes = true
-warn_unreachable = true
-enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
 
 [tool.ruff]
 line-length = 120

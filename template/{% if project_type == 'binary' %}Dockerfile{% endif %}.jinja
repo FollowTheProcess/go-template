@@ -1,0 +1,4 @@
+FROM gcr.io/distroless/static
+ARG TARGETPLATFORM
+COPY ${TARGETPLATFORM}/{{project_slug}} /usr/local/bin/{{project_slug}}
+ENTRYPOINT [ "/usr/local/bin/{{project_slug}}" ]
