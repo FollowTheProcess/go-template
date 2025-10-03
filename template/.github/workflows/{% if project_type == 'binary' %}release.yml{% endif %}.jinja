@@ -80,3 +80,8 @@ jobs:
         uses: actions/attest-build-provenance@v3
         with:
           subject-checksums: dist/checksums.txt
+
+      - name: Generate Image Attestation
+        uses: actions/attest-build-provenance@v3
+        with:
+          subject-checksums: dist/digests.txt
