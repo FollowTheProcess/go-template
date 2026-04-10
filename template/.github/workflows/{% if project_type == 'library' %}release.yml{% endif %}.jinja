@@ -31,7 +31,7 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Publish Draft Release
-        uses: release-drafter/release-drafter@v6
+        uses: release-drafter/release-drafter@v7
         with:
           version: {% raw %}${{ steps.version.outputs.version }}{% endraw %}
           publish: true
