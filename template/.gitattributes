@@ -3,7 +3,7 @@
 
 # Force LF even on windows for testdata, means comparisons don't fail just
 # because of line endings
-**/testdata/* text eol=lf
+**/testdata/** text eol=lf
 
 # Txtar requires lf
 *.txtar text eol=lf
