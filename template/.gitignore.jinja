@@ -12,20 +12,24 @@
 
 # Go
 !*.go
-!go.sum
-!go.mod
-!.golangci.yml
-!**/testdata/**/*
-!.goreleaser.yaml
+!/go.sum
+!/go.mod
+!/.golangci.yml
+!/.goreleaser.yaml
 !*.tmpl
+
+# Test fixtures
+!**/testdata/**/*.txt
+!**/testdata/**/*.txtar
+!**/testdata/**/*.http
 
 # Task
 !Taskfile.yml
 
 # Git
-!.gitattributes
+!/.gitattributes
 !.gitignore
-!.mailmap
+!/.mailmap
 
 # GitHub Actions
 !.github/**/*.yml
@@ -35,15 +39,16 @@
 # Docs
 !docs/img/*.png
 !docs/img/*.webp
-!README.md
-!LICENSE
+!docs/img/*.gif
+!/README.md
+!/LICENSE
 
 # Docker
-!Dockerfile
+!/Dockerfile
 
 # Other
-!.typos.toml
-!.copier-answers.yml
+!/.typos.toml
+!/.copier-answers.yml
 
 # ...even if they are in subdirectories
 !*/

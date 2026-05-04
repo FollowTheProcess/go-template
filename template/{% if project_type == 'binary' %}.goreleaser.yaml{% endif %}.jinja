@@ -12,16 +12,14 @@ gomod:
 report_sizes: true
 
 builds:
-  - id: {{project_slug}}
-    dir: "."
-    main: "."
-    binary: {{project_slug}}
+  - main: "." # Or cmd/name if you move it
     flags:
       - -trimpath
     ldflags:
       - -s -w
     env:
       - CGO_ENABLED=0
+    mod_timestamp: "{% raw %}{{ .CommitTimestamp }}{% endraw %}"
     goos:
       - linux
       - darwin
@@ -66,7 +64,7 @@ dockers_v2:
       - {% raw %}"{{ .Version }}"{% endraw %}
     labels:
       "org.opencontainers.image.description": "{{description}}"
-      "org.opencontainers.image.created": {% raw %}"{{.Date}}"{% endraw %}
+      "org.opencontainers.image.created": {% raw %}"{{.CommitDate}}"{% endraw %}
       "org.opencontainers.image.name": {% raw %}"{{.ProjectName}}"{% endraw %}
       "org.opencontainers.image.revision": {% raw %}"{{.FullCommit}}"{% endraw %}
       "org.opencontainers.image.version": {% raw %}"{{.Version}}"{% endraw %}
@@ -74,11 +72,10 @@ dockers_v2:
 
 docker_digest:
   name_template: digests.txt
-  disable: false
 
 archives:
-  - id: {{project_slug}}
-    {% raw %}name_template: >-
+  {%- raw %}
+  - name_template: >-
       {{ .ProjectName }}-
       {{- .Version }}-
       {{- .Os }}-
@@ -87,8 +84,7 @@ archives:
       {{- else }}{{ .Arch }}{{ end }}{% endraw %}
 
 sboms:
-  - id: {{project_slug}}
-    artifacts: archive
+  - artifacts: archive
     {% raw %}documents:
       - >-
         {{ .ProjectName }}-
