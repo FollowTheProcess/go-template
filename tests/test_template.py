@@ -26,7 +26,7 @@ def test_expected_files(template: Path) -> None:
         ".gitignore",
         ".golangci.yml",
         ".typos.toml",
-        "Taskfile.yml",
+        "mise.toml",
         "README.md",
         "main.go",
         "go.mod",

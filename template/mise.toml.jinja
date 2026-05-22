@@ -1,0 +1,129 @@
+# Dev tasks for {{project_slug}}. Run `mise tasks` to list, `mise run <task>` to execute.
+# Extra args after `--` are appended to the task's command:
+#   mise run test -- -run TestFoo
+#   mise run bench -- -benchtime 5s
+
+[tools]
+typos = "latest"
+"go:golang.org/x/pkgsite/cmd/pkgsite" = "latest"
+{%- if linter == 'golangci-lint' %}
+golangci-lint = "latest"
+{%- endif %}
+{%- if linter == 'staticcheck' %}
+"go:honnef.co/go/tools/cmd/staticcheck" = "latest"
+{%- endif %}
+{%- if project_type == 'binary' %}
+goreleaser = "latest"
+{%- endif %}
+
+[vars]
+COV_DATA = "coverage.out"
+
+[tasks.tidy]
+description = "Tidy dependencies in go.mod and go.sum"
+sources = ["**/*.go", "go.mod", "go.sum"]
+run = "go mod tidy"
+
+[tasks.gen]
+description = "Run go generate"
+sources = ["**/*.go"]
+run = "go generate ./..."
+
+{% if linter == 'golangci-lint' -%}
+[tasks.fmt]
+description = "Run go fmt on all source files"
+sources = ["**/*.go", ".golangci.yml"]
+run = "golangci-lint fmt ./..."
+{%- else -%}
+[tasks.fmt]
+description = "Run go fmt on all source files"
+sources = ["**/*.go"]
+run = "go fmt ./..."
+{%- endif %}
+
+[tasks.test]
+description = "Run the test suite"
+sources = [
+  "**/*.go",
+  "go.mod",
+  "go.sum",
+  "**/testdata/**/*",
+]
+# -race needs CGO (https://go.dev/doc/articles/race_detector#Requirements)
+env = { CGO_ENABLED = "1" }
+run = "go test -race ./..."
+
+{% if project_type == 'binary' -%}
+[tasks.build]
+description = "Compile the project binary"
+sources = ["**/*.go", "go.mod", "go.sum", ".goreleaser.yaml"]
+outputs = ["bin", "dist"]
+run = [
+  "mkdir -p ./bin",
+  "goreleaser build --single-target --skip before --snapshot --clean --output ./bin/{{project_slug}}",
+]
+
+[tasks.snapshot]
+description = "Create a snapshot release"
+run = """
+docker stats --no-stream >/dev/null 2>&1 || { echo 'The docker daemon must be running'; exit 1; }
+goreleaser release --snapshot --clean
+"""
+
+{% endif -%}
+[tasks.bench]
+description = "Run all project benchmarks"
+sources = ["**/*.go"]
+run = "go test ./... -run None -benchmem -bench ."
+
+{% if linter == 'golangci-lint' -%}
+[tasks.lint]
+description = "Run linting"
+depends = ["fmt"]
+sources = ["**/*.go", ".golangci.yml"]
+run = ["golangci-lint run --fix", "typos"]
+{%- else -%}
+[tasks.lint]
+description = "Run linting"
+sources = ["**/*.go", "staticcheck.conf"]
+run = ["staticcheck ./...", "typos"]
+{%- endif %}
+
+[tasks.doc]
+description = "Render the pkg docs locally"
+run = "pkgsite -open"
+
+[tasks.cov]
+description = "Calculate test coverage and render the html"
+outputs = [{% raw %}"{{ vars.COV_DATA }}"{% endraw %}]
+run = [
+  "go test -race -cover -covermode atomic -coverprofile {% raw %}{{ vars.COV_DATA }}{% endraw %} ./...",
+  "go tool cover -html {% raw %}{{ vars.COV_DATA }}{% endraw %}",
+]
+
+[tasks.check]
+description = "Run tests and linting in one"
+depends = ["test", "lint"]
+
+[tasks.sloc]
+description = "Print lines of code"
+run = "fd . -e go | xargs wc -l | sort -nr | head"
+
+[tasks.clean]
+description = "Remove build artifacts and other clutter"
+run = ["go clean ./...", "rm -rf {% raw %}{{ vars.COV_DATA }}{% endraw %} ./bin ./dist"]
+
+[tasks.update]
+description = "Updates dependencies in go.mod and go.sum"
+run = ["go get -u ./...", "go mod tidy"]
+{%- if project_type == 'binary' %}
+
+[tasks.uninstall]
+description = "Uninstall the project from your machine"
+run = "rm -rf $GOBIN/{{project_slug}}"
+
+[tasks.install]
+description = "Install the project on your machine"
+depends = ["uninstall", "build"]
+run = "cp ./bin/{{project_slug}} $GOBIN/{{project_slug}}"
+{%- endif %}
