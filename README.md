@@ -22,9 +22,9 @@ The project template comes with a ready to go GitHub Actions configuration file 
 * Formatting with `go fmt`
 * Dependency updates with [Dependabot] or [Renovate]
 
-### Automation with [Task]
+### Automation with [mise]
 
-Very clean and simple `Taskfile.yml` to automate project maintenance and development
+Very clean and simple `mise.toml` to manage dev tooling and automate project maintenance. Run `mise tasks` to see what's available.
 
 ### GitHub Issue Labelling
 
@@ -61,7 +61,7 @@ copier copy gh:FollowTheProcess/go-template /path/to/put/your/new/project
 [staticcheck]: https://staticcheck.dev
 [goreleaser]: https://goreleaser.com/intro/
 [copier]: https://github.com/copier-org/copier
-[Task]: https://taskfile.dev
+[mise]: https://mise.jdx.dev
 [repository secret]: https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions
 [personal access token]: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
 [Dependabot]: https://github.com/dependabot

@@ -1,0 +1,31 @@
+# Dev tasks for the go-template repo itself. Run `mise tasks` to list, `mise run <task>` to execute.
+
+[env]
+FORCE_COLOR = "true"
+
+[tools]
+uv = "latest"
+
+[tasks.dev]
+description = "Set up the development environment"
+run = "uv sync --all-extras --dev"
+
+[tasks.test]
+description = "Run the unit tests"
+run = "uv run pytest -vv"
+
+[tasks.fmt]
+description = "Format all the things"
+run = "uv run ruff format ."
+
+[tasks.lint]
+description = "Run linting"
+run = ["uv run ruff check .", "uv run ty check ."]
+
+[tasks.check]
+description = "Run all the checks"
+depends = ["test", "fmt", "lint"]
+
+[tasks.update]
+description = "Update all dependencies"
+run = "uv sync --upgrade --all-extras --dev"
