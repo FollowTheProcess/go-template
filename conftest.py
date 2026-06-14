@@ -42,7 +42,6 @@ def template(tmp_path_factory: pytest.TempPathFactory) -> Iterator[Path]:
             "author_name": "Test McTest",
             "author_email": "testmctest@gmail.com",
             "dependency_bot": "renovate",
-            "linter": "golangci-lint",
         },
         vcs_ref="HEAD",
     )

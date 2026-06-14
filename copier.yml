@@ -59,11 +59,4 @@ dependency_bot:
     - renovate
     - dependabot
 
-linter:
-  help: Which popular Go linter to use
-  type: str
-  choices:
-    - golangci-lint
-    - staticcheck
-
 _subdirectory: template

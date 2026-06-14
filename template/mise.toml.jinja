@@ -6,12 +6,7 @@
 [tools]
 typos = "latest"
 "go:golang.org/x/pkgsite/cmd/pkgsite" = "latest"
-{%- if linter == 'golangci-lint' %}
 golangci-lint = "latest"
-{%- endif %}
-{%- if linter == 'staticcheck' %}
-"go:honnef.co/go/tools/cmd/staticcheck" = "latest"
-{%- endif %}
 {%- if project_type == 'binary' %}
 goreleaser = "latest"
 {%- endif %}
@@ -29,17 +24,10 @@ description = "Run go generate"
 sources = ["**/*.go"]
 run = "go generate ./..."
 
-{% if linter == 'golangci-lint' -%}
 [tasks.fmt]
 description = "Run go fmt on all source files"
 sources = ["**/*.go", ".golangci.yml"]
 run = "golangci-lint fmt ./..."
-{%- else -%}
-[tasks.fmt]
-description = "Run go fmt on all source files"
-sources = ["**/*.go"]
-run = "go fmt ./..."
-{%- endif %}
 
 [tasks.test]
 description = "Run the test suite"
@@ -76,18 +64,11 @@ description = "Run all project benchmarks"
 sources = ["**/*.go"]
 run = "go test ./... -run None -benchmem -bench ."
 
-{% if linter == 'golangci-lint' -%}
 [tasks.lint]
 description = "Run linting"
 depends = ["fmt"]
 sources = ["**/*.go", ".golangci.yml"]
 run = ["golangci-lint run --fix", "typos"]
-{%- else -%}
-[tasks.lint]
-description = "Run linting"
-sources = ["**/*.go", "staticcheck.conf"]
-run = ["staticcheck ./...", "typos"]
-{%- endif %}
 
 [tasks.doc]
 description = "Render the pkg docs locally"
