@@ -3,42 +3,53 @@ tag-template: "v$RESOLVED_VERSION"
 
 categories:
   - title: ":boom: Breaking Changes"
-    label: breaking
+    when:
+      label: breaking
 
   - title: ":rocket: Features"
-    labels:
-      - enhancement
-      - feature
+    when:
+      labels:
+        - enhancement
+        - feature
 
   - title: ":fire: Removals and Deprecations"
-    label: removal
+    when:
+      label: removal
 
   - title: ":beetle: Fixes"
-    label: bug
+    when:
+      label: bug
 
   - title: ":racehorse: Performance"
-    label: performance
+    when:
+      label: performance
 
   - title: ":rotating_light: Testing"
-    label: testing
+    when:
+      label: testing
 
   - title: ":construction_worker: Continuous Integration"
-    label: ci
+    when:
+      label: ci
 
   - title: ":books: Documentation"
-    label: documentation
+    when:
+      label: documentation
 
   - title: ":hammer: Refactoring"
-    label: refactoring
+    when:
+      label: refactoring
 
   - title: ":lipstick: Style"
-    label: style
+    when:
+      label: style
 
   - title: ":package: Dependencies"
-    labels:
-      - dependencies
-      - build
+    when:
+      labels:
+        - dependencies
+        - build
 
-template: |
+template: |-
   ## Changes
   $CHANGES
