@@ -17,14 +17,18 @@ The template lets you choose whether you want to create a binary executable prog
 
 The project template comes with a ready to go GitHub Actions configuration file which automates all your code quality checks:
 
-* Testing with `go test`
-* Linting with [golangci-lint] or [staticcheck]
-* Formatting with `go fmt`
-* Dependency updates with [Dependabot] or [Renovate]
+- Testing with `go test`
+- Linting with [golangci-lint]
+- Formatting with `go fmt`
+- Dependency updates with [Dependabot] or [Renovate]
 
 ### Automation with [mise]
 
-Very clean and simple `mise.toml` to manage dev tooling and automate project maintenance. Run `mise tasks` to see what's available.
+Very clean and simple `mise.toml` to manage and automate project maintenance. Run `mise tasks` to see what's available.
+
+### Support for [Nix] Flakes
+
+By default, a `flake.nix` will be created that provides a development shell for `nix develop`, a Go module build etc.
 
 ### GitHub Issue Labelling
 
@@ -38,27 +42,26 @@ This is automatically run when you push a new tag to main.
 
 ## Usage
 
-* Ensure you have [copier] installed (I'm using [uv] here):
+- Ensure you have [copier] installed (I'm using [uv] here):
 
-``` shell
+```shell
 uv tool install copier
 ```
 
-* Call copier with this template and answer all the questions
+- Call copier with this template and answer all the questions
 
-``` shell
+```shell
 copier copy gh:FollowTheProcess/go-template /path/to/put/your/new/project
 ```
 
-* Create a git repo and start developing
+- Create a git repo and start developing
 
-* Make a first commit to set up the github repo
+- Make a first commit to set up the github repo
 
-* That should be it! from now on everything will be handled automatically. All you need to do is write code, tests and docs! Your code will be style checked, your tests will be run etc.
+- That should be it! from now on everything will be handled automatically. All you need to do is write code, tests and docs! Your code will be style checked, your tests will be run etc.
 
 [GitHub actions]: https://docs.github.com/en/free-pro-team@latest/actions
 [golangci-lint]: https://golangci-lint.run
-[staticcheck]: https://staticcheck.dev
 [goreleaser]: https://goreleaser.com/intro/
 [copier]: https://github.com/copier-org/copier
 [mise]: https://mise.jdx.dev
@@ -67,3 +70,4 @@ copier copy gh:FollowTheProcess/go-template /path/to/put/your/new/project
 [Dependabot]: https://github.com/dependabot
 [Renovate]: https://www.mend.io/renovate/
 [uv]: https://docs.astral.sh/uv/
+[Nix]: https://nixos.org
