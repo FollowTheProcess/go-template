@@ -59,4 +59,9 @@ dependency_bot:
     - renovate
     - dependabot
 
+flake:
+  help: Generate a nix flake for this project
+  type: bool
+  default: true
+
 _subdirectory: template

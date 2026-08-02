@@ -1,0 +1,45 @@
+{ inputs, ... }:
+let
+  version = "0.1.0";
+in
+{
+  perSystem =
+    {
+      pkgs,
+      lib,
+      self',
+      ...
+    }:
+    {
+      packages.default = pkgs.buildGoModule {
+        meta = {
+          description = "{{ description }}";
+          homepage = "{{ github_url }}";
+          license = lib.licenses.mit;
+          platforms = lib.platforms.unix;
+          mainProgram = "{{ project_slug }}";
+        };
+
+        pname = "{{ project_slug }}";
+        inherit version;
+        src = lib.sources.cleanSource inputs.self;
+        vendorHash = lib.fakeHash; # Replace me
+        ldflags = [
+          "-s"
+          "-w"
+        ];
+
+        env = {
+          CGO_ENABLED = 0;
+        };
+
+        checkPhase = ''
+          runHook preCheck
+          CGO_ENABLED=1 go test -race ./...
+          runHook postCheck
+        '';
+      };
+
+      checks.{{ project_slug }} = self'.packages.default;
+    };
+}
