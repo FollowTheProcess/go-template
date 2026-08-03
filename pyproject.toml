@@ -1,6 +1,6 @@
 [project]
 name = "go-template"
-version = "0.57.0"
+version = "0.57.1"
 description = "A clean, simple Go copier template."
 readme = "README.md"
 requires-python = ">=3.13,<4"
